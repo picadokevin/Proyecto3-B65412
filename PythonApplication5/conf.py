@@ -8,16 +8,16 @@ except AttributeError:
     collectionsAbc = collections
 
 _sql_server = "localhost"
-_sql_database = "B65412"
+_sql_database = "B65412-Proyecto"
 _sql_server_port = 1433
 _sql_user = "kevin"
 _sql_password = "Kevin"
 
-_postgre_server = "."
-_postgre_database = ""
+_postgre_server = "localhost"
+_postgre_database = "B65412-Proyecto"
 _postgre_server_port = 5432
 _postgre_user = "postgres"
-_postgre_password = postgres = ""
+_postgre_password = postgres = "admin"
 
 
 def mssql_connection():
@@ -41,11 +41,11 @@ def postgreSql_Connection():
         print('Error:MSSQL connection')
 
 
-def get_data_from_sql(sp):
+def get_data_from_sql(sp,tableName):
     try:
         con = mssql_connection()
         cur = con.cursor()
-        cur.exeute("execute {} @output_IS_SUCCESSFUL=0, @output_STATUS=0".FORMAT(S))
+        cur.execute("execute {} @output_IS_SUCCESSFUL=0, @output_STATUS=0,@INPUT_TABLA=%s".format(sp)%tableName)
         data_return = cur.fetchall()
         con.commit()
 
